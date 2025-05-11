@@ -42,3 +42,33 @@ CREATE TABLE Inventory.Furniture(
     UpdatedDate DATETIME
 )
 
+select *  from Inventory.Furniture
+exec sp_help 'Inventory.Furniture'
+---- INSERT INTO TABLE lecture
+
+/*
+here we haven't inserted in Furniture Id because that is the identity column we let sql to generate that 
+also, date should be put in iso type like 2025-08-15 
+and datetime will be like 2025-08-15 20:00:00 
+*/
+INSERT INTO Inventory.Furniture(
+    FurnitureType,
+    FurnitureName,
+    Price,
+    Quantity,
+    ReleaseDate,
+    CreatedDate,
+    UpdatedDate
+)
+VALUES(
+    'Couch',
+    'The Super Deluxe Section',
+    1299.99,
+    34,
+    '2023-08-15',--put date in iso format i.e yyyy-mm-dd
+    '2023-08-15 20: 00: 00',
+    '2023-08-15 20: 00: 00'
+)
+
+SELECT * from inventory.furniture
+
