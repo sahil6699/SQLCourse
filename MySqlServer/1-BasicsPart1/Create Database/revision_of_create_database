@@ -1,0 +1,39 @@
+-- how to create object
+-- CREATE OBJECT object_name
+
+-- so for creating a database we use
+-- CREATE DATABASE database_name
+CREATE DATABASE TestDatabase;
+
+-- how to delete a object
+-- DROP OBJECT object_name
+
+-- so how to drop a table
+-- DROP DATABASE database_name
+USE master
+DROP DATABASE TestDatabase;
+
+USE master 
+DROP DATABASE IF EXISTS TestDatabase;
+CREATE DATABASE TestDatabase;
+GO
+Use TestDatabase;
+ 
+
+ --how to create schema
+--  CREATE SCHEMA schema_name
+-- create schema should be a first command in the batch
+CREATE SCHEMA  inventory
+
+--DROP SCHEMA 
+-- DROP SCHEMA schema_name
+DROP SCHEMA inventory
+
+-- IF exists checks if schmea exists then it drops it
+DROP SCHEMA IF EXISTS inventory
+
+USE TestDatabase
+DROP SCHEMA IF EXISTS inventory
+GO
+
+CREATE SCHEMA inventory
