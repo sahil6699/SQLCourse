@@ -69,6 +69,27 @@ VALUES(
     '2023-08-15 20: 00: 00',
     '2023-08-15 20: 00: 00'
 )
+-- select * returns all the fields in the table
+SELECT * from inventory.Furniture;
+-- we can return selected fields in the table by specifying which field we need
+-- this is generaly fast as we only requesting the data which we need instead of all data
+SELECT [FurnitureId],
+    [FurnitureType],
+    [FurnitureName],
+    [Price],
+    [Quantity] 
+from inventory.Furniture
 
-SELECT * from inventory.furniture
-
+-- we can give alias to the table like
+-- when we used ctrl + spacebar on mac around start we got the
+-- field name as Alias_name.Field_name
+-- when there are mutltiple table in a single query this helps us to differentiate which column is of which table
+-- when there are multiple tables in a single query
+SELECT [Furniture1].[FurnitureId],
+[Furniture1].[FurnitureType],
+[Furniture1].[FurnitureName],
+[Furniture1].[Price],
+[Furniture1].[Quantity],
+[Furniture1].[ReleaseDate],
+[Furniture1].[CreatedDate],
+[Furniture1].[UpdatedDate] from inventory.Furniture AS Furniture1
