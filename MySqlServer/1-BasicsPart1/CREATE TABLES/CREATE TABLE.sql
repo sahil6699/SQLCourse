@@ -21,13 +21,23 @@ CREATE TABLE SCHEMA_NAME.Table_name (
 -- it not necessary to start from 1 and increment,
 --  we can even start from 100 and increment 1000 each time
 -- then table columns FurnitureId would be 100,1100 ,2100,...and so on
+
+/*
+NULL - means there is nothing here in this field
+if we specify NULL along side a field we are creating we saying that a NULL value can be stored here, means if the user stores nothing here while inserting value it will still not give an error
+
+NOT NULL - if specify NOT NULL along a field then we can't save NULL in this field or user has to provide any value while saving if there is not default value
+
+DEFAULT(value) - is something we use when we want that if the user doesn't provide any value while insert/updating value should be used
+it prevents us from getting error when it is speicified as field is NOT NULL
+*/
 CREATE TABLE Inventory.Furniture(
     FurnitureId INT IDENTITY(1,1),
-    FurnitureType VARCHAR(50),
-    FurnitureName VARCHAR(50),
+    FurnitureType VARCHAR(50) NULL,
+    FurnitureName VARCHAR(50) NOT NULL,
     Price DECIMAL(18,4),
-    Quantity int,
-    ReleaseDate Date,
+    Quantity INT DEFAULT(0) NOT NULL,
+    ReleaseDate DATE,
     CreatedDate DATETIME,
     UpdatedDate DATETIME
 )
