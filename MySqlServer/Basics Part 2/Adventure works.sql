@@ -235,3 +235,38 @@ WHERE GroupName='Research and Development'
 UPDATE HumanResources.Department
 SET GroupName='R and D'
 WHERE DepartmentID in (SELECT DepartmentID FROM HumanResources.Department WHERE GroupName='Research and Development')
+
+-------------------------------------INTO CLAUSE-------------------------
+-- again running this code will error as into statement always creates a new table
+-- this will not insert entries again into same table but give an error as into statement always creates a new table and then inserts into it
+-- we can avoid the error by writting DROP Table_name IF EXISTS but this will create a new table and inserted into that and drop the already saved table if saved , this will not make a new entry to the same table
+DROP  TABLE IF EXISTS HumanResources.DepartmentCopy
+SELECT [DepartmentID],
+    [Name],
+    [GroupName],
+    [ModifiedDate]
+    INTO HumanResources.DepartmentCopy
+FROM HumanResources.Department
+-- we can use where condition too with into this will copy only the things that satify the condition
+WHERE DepartmentID >7
+
+SELECT * from HumanResources.DepartmentCopy
+
+
+-------------------------TRUNCATE STATEMENT---------------
+-- remmember : in truncate we reset the table as empty table
+INSERT INTO HumanResources.DepartmentCopy(
+    [Name],
+    [GroupName],
+    [ModifiedDate]
+) VALUES('Random Name', 'Random Group',GETDATE())
+
+SELECT * from HumanResources.DepartmentCopy
+
+-- TRUNCATE SYNTAX
+-- TRUNCATE Object_name(TABLE) table_name(object_name_set_by_user)
+-- TRUNCATE has one main functionality that it resets the identity and everything and delete doesn't do it we start from where the last delte ended in that case
+TRUNCATE TABLE HumanResources.DepartmentCopy
+
+-- in case of delete it will start from the id where the last one ended where as truncate will start like a new session
+DELETE from HumanResources.DepartmentCopy WHERE 1=1
