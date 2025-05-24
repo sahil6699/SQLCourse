@@ -183,3 +183,55 @@ SELECT [BusinessEntityID],
 [rowguid],
 [ModifiedDate] from HumanResources.Employee
 WHERE MaritalStatus = 'M'
+
+
+-------------DELETE CLAUSE-----------
+-- always run a select clause with same condition as delete clause before running the actual delete clause 
+-- as there can be sometimes complex condition which you have not taken care and after using delete there is not way to get them back 
+SELECT * FROM HumanResources.Department
+WHERE DepartmentID=7
+
+DELETE FROM HumanResources.Department
+WHERE DepartmentID=7
+/*
+Msg 547, Level 16, State 0, Line 1
+The DELETE statement conflicted with the REFERENCE constraint 
+"FK_EmployeeDepartmentHistory_Department_DepartmentID". The conflict occurred in database "AdventureWorks2019", 
+table "HumanResources.EmployeeDepartmentHistory", column 'DepartmentID'.
+*/
+-- we get above error when trying to delete the above row of the table 
+-- because it is a foriegn key in another table 
+-- so we first have to delete all the records with this field in that table and then come to delete here
+
+SELECT * FROM HumanResources.EmployeeDepartmentHistory
+WHERE DepartmentID=7
+DELETE FROM HumanResources.EmployeeDepartmentHistory
+WHERE DepartmentID=7
+
+
+--------------------------------UPDATE CLAUSE-----------------------
+--  if we want we can select the rows that are being updated with the condition in the update clause to see which fields are being updated
+
+SELECT * FROM HumanResources.Department
+WHERE DepartmentID=6
+
+UPDATE HumanResources.Department
+SET [Name] = 'R and D'
+WHERE DepartmentID=6
+
+-- now we'll update the group name from Research and Development to R and D
+SELECT DepartmentID from HumanResources.Department
+WHERE GroupName='Research and Development'
+
+SELECT * FROM HumanResources.Department
+WHERE GroupName='Research and Development'
+
+-- should we go with this or below one which is better and which would work?
+UPDATE HumanResources.Department
+SET GroupName='R and D'
+WHERE GroupName='Research and Development'
+
+-- both will work correctly
+UPDATE HumanResources.Department
+SET GroupName='R and D'
+WHERE DepartmentID in (SELECT DepartmentID FROM HumanResources.Department WHERE GroupName='Research and Development')
